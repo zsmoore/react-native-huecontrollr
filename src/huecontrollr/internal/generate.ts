@@ -94,12 +94,12 @@ class LightDeserializer extends DataGenerator<Light> {
   };
 
   formatForPost: (toFormat: Light) => any = (toFormat) => {
-    return JSON.stringify({
+    return {
       state:
         toFormat.state !== undefined
           ? new StateDeserializer().formatForPost(toFormat.state)
           : undefined,
-    });
+    };
   };
 }
 
@@ -122,7 +122,7 @@ class StateDeserializer extends DataGenerator<State> {
   };
 
   formatForPost: (toFormat: State) => any = (toFormat) => {
-    return JSON.stringify({
+    return {
       on: toFormat.on,
       bri: toFormat.brightness,
       hue: toFormat.hue,
@@ -137,7 +137,7 @@ class StateDeserializer extends DataGenerator<State> {
       colorMode: toFormat.colorMode,
       mode: toFormat.mode,
       reachable: toFormat.reachable,
-    });
+    };
   };
 }
 
@@ -151,7 +151,7 @@ class XYDeserializer extends DataGenerator<XY> {
   };
 
   formatForPost: (toFormat: XY) => any = (toFormat) => {
-    return JSON.stringify([toFormat.x, toFormat.y]);
+    return [toFormat.x, toFormat.y];
   };
 }
 
@@ -173,8 +173,8 @@ class IpDiscoveryResponseDeserializer extends DataGenerator<IpDiscoveryResponse>
   };
 
   formatForPost: (toFormat: IpDiscoveryResponse) => any = (toFormat) => {
-    return JSON.stringify(
-      toFormat.devices.map((el) => new DeviceDeserializer().formatForPost(el))
+    return toFormat.devices.map((el) =>
+      new DeviceDeserializer().formatForPost(el)
     );
   };
 }
@@ -189,10 +189,10 @@ class DeviceDeserializer extends DataGenerator<Device> {
   };
 
   formatForPost: (toFormat: Device) => any = (toFormat) => {
-    return JSON.stringify({
+    return {
       id: toFormat.id,
       internalipaddress: toFormat.internalIpAddress,
-    });
+    };
   };
 }
 
@@ -208,9 +208,9 @@ class UserCreateBodyDeserializer extends DataGenerator<UserCreateBody> {
   };
 
   formatForPost: (toFormat: UserCreateBody) => any = (toFormat) => {
-    return JSON.stringify({
+    return {
       devicetype: `${toFormat.applicationName}#${toFormat.deviceName}`,
-    });
+    };
   };
 }
 
@@ -224,6 +224,6 @@ class UserCreateResponseDeserializer extends DataGenerator<UserCreateResponse> {
   };
 
   formatForPost: (toFormat: UserCreateResponse) => any = (toFormat) => {
-    return JSON.stringify(toFormat);
+    return toFormat;
   };
 }

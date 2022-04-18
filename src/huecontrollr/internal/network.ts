@@ -81,7 +81,7 @@ export function put<T, R>(
   console.log(t);
   fetch(request.url, {
     method: 'PUT',
-    body: t,
+    body: JSON.stringify(t),
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ export function post<T, R>(
   console.log(t);
   fetch(request.url, {
     method: 'POST',
-    body: t,
+    body: JSON.stringify(t),
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
