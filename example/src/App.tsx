@@ -1,13 +1,15 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-huecontrollr';
+import Controller from 'react-native-huecontrollr';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();
 
   React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+    Controller.createWithAutoIpAndUsername('test', 'test2', (_) => {
+      console.log('callback');
+    });
   }, []);
 
   return (

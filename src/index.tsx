@@ -1,3 +1,4 @@
-export function multiply(a: number, b: number): Promise<number> {
-  return Promise.resolve(a * b);
-}
+import Controllr from './huecontrollr/controllr';
+export { getFromRGB } from './huecontrollr/util/color';
+
+export default Controllr;
