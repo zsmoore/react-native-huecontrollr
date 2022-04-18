@@ -76,7 +76,7 @@ export function put<T, R>(
   outputTypeHint?: TypeHint,
   onResponse?: (resp: R) => void
 ) {
-  const t: any = removeNulls(formatForPost(data, inputTypeHint));
+  const t: any = formatForPost(data, inputTypeHint);
   console.log('putting');
   console.log(t);
   fetch(request.url, {
@@ -113,7 +113,7 @@ export function post<T, R>(
   outputTypeHint: TypeHint,
   onResponse: (resp: R) => void
 ) {
-  const t: any = removeNulls(formatForPost(data, inputTypeHint));
+  const t: any = formatForPost(data, inputTypeHint);
   console.log('posting');
   console.log(t);
   fetch(request.url, {
