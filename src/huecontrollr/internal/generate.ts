@@ -95,7 +95,10 @@ class LightDeserializer extends DataGenerator<Light> {
 
   formatForPost: (toFormat: Light) => any = (toFormat) => {
     return JSON.stringify({
-      state: new StateDeserializer().formatForPost(toFormat.state),
+      state:
+        toFormat.state !== undefined
+          ? new StateDeserializer().formatForPost(toFormat.state)
+          : undefined,
     });
   };
 }
@@ -125,7 +128,10 @@ class StateDeserializer extends DataGenerator<State> {
       hue: toFormat.hue,
       sat: toFormat.saturation,
       effect: toFormat.effect,
-      xy: new XYDeserializer().formatForPost(toFormat.xy),
+      xy:
+        toFormat.xy !== undefined
+          ? new XYDeserializer().formatForPost(toFormat.xy)
+          : undefined,
       ct: toFormat.colorTemperature,
       alert: toFormat.alert,
       colorMode: toFormat.colorMode,
