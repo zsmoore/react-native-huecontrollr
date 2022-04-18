@@ -1,22 +1,22 @@
 import { formatForPost, generate, TypeHint } from './generate';
 import type { ControllrRequest } from './request';
 
-// // hacky hack to dynamically remove undefines set from blindly constructing objects
-// function removeNulls<T extends object>(t: T): object {
-//   interface anyObj {
-//     [key: string]: any;
-//   }
-//   let newObj: anyObj = {};
-//   Object.keys(t).forEach((key) => {
-//     if (t[key as keyof T] === Object(t[key as keyof T])) {
-//       newObj[key] = removeNulls(t[key as keyof T] as unknown as object);
-//     } else if (t[key as keyof T] !== undefined) {
-//       newObj[key] = t[key as keyof T];
-//     }
-//     return newObj;
-//   });
-//   return t;
-// }
+// hacky hack to dynamically remove undefines set from blindly constructing objects
+function removeNulls<T extends object>(t: T): object {
+  interface anyObj {
+    [key: string]: any;
+  }
+  let newObj: anyObj = {};
+  Object.keys(t).forEach((key) => {
+    if (t[key as keyof T] === Object(t[key as keyof T])) {
+      newObj[key] = removeNulls(t[key as keyof T] as unknown as object);
+    } else if (t[key as keyof T] !== undefined) {
+      newObj[key] = t[key as keyof T];
+    }
+    return newObj;
+  });
+  return t;
+}
 
 export function get<T>(
   request: ControllrRequest,
@@ -76,7 +76,7 @@ export function put<T, R>(
   outputTypeHint?: TypeHint,
   onResponse?: (resp: R) => void
 ) {
-  const t: any = formatForPost(data, inputTypeHint);
+  const t: any = removeNulls(formatForPost(data, inputTypeHint));
   console.log('putting');
   console.log(t);
   fetch(request.url, {
@@ -113,7 +113,7 @@ export function post<T, R>(
   outputTypeHint: TypeHint,
   onResponse: (resp: R) => void
 ) {
-  const t: any = formatForPost(data, inputTypeHint);
+  const t: any = removeNulls(formatForPost(data, inputTypeHint));
   console.log('posting');
   console.log(t);
   fetch(request.url, {
