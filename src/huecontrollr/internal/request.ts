@@ -37,7 +37,7 @@ export class SubApiRequest implements ControllrRequest {
 
   getRequest(subRoute: String): ControllrRequest {
     return {
-      url: this.subRequest.url + `${subRoute}`,
+      url: this.subRequest.url + `/${subRoute}`,
     };
   }
 }
