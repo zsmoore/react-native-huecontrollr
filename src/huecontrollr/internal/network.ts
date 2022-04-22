@@ -23,15 +23,11 @@ export function get<T>(
   typeHint: TypeHint,
   onResponse: (t: T) => void
 ) {
-  console.log('getting');
   fetch(request.url)
     .then((response) => response.json())
     .then((json) => {
-      console.log('get received');
-      console.log(json);
       const t: T | null = generate(json, typeHint);
       if (t !== null) {
-        console.log(t);
         onResponse(t);
       } else {
         console.log('Could not parse');
@@ -47,12 +43,9 @@ export function batchGet<T>(
   typeHint: TypeHint,
   onResponse: (batchResponse: Map<Number, T>) => void
 ) {
-  console.log('batch getting');
   fetch(request.url)
     .then((response) => response.json())
     .then((json) => {
-      console.log('batch get received');
-      console.log(json);
       const responseMap = new Map<Number, T>();
       for (const key in json) {
         const t: T | null = generate(json[key], typeHint);
@@ -77,8 +70,6 @@ export function put<T, R>(
   onResponse?: (resp: R) => void
 ) {
   const t: any = removeNulls(formatForPost(data, inputTypeHint));
-  console.log('putting');
-  console.log(t);
   fetch(request.url, {
     method: 'PUT',
     body: JSON.stringify(t),
@@ -89,12 +80,9 @@ export function put<T, R>(
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log('put received');
-      console.log(responseJson);
       if (onResponse && outputTypeHint) {
         const r: R | null = generate(responseJson, outputTypeHint);
         if (r !== null) {
-          console.log(r);
           onResponse(r);
         } else {
           console.log('Could not parse response');
@@ -114,8 +102,6 @@ export function post<T, R>(
   onResponse: (resp: R) => void
 ) {
   const t: any = removeNulls(formatForPost(data, inputTypeHint));
-  console.log('posting');
-  console.log(t);
   fetch(request.url, {
     method: 'POST',
     body: JSON.stringify(t),
@@ -126,12 +112,8 @@ export function post<T, R>(
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log('post received');
-      console.log(responseJson);
       const r: R | null = generate(responseJson, outputTypeHint);
-      console.log(r);
       if (r !== null) {
-        console.log(r);
         onResponse(r);
       } else {
         console.log('Could not parse response');
