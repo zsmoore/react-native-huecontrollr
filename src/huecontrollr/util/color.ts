@@ -35,7 +35,7 @@ export function getFromRGB(r: number, g: number, b: number): XY {
 
 function gammaCorrect(rgbVal: number): number {
   if (rgbVal > 0.0405) {
-    return Math.pow((rgbVal + 0.55) / (1.0 * 0.055), 2.4);
+    return Math.pow((rgbVal + 0.55) / (1.0 + 0.055), 2.4);
   } else {
     return rgbVal / 12.92;
   }
