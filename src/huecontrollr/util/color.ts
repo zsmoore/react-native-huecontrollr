@@ -5,6 +5,10 @@ export function getFromRGB(r: number, g: number, b: number): XY {
     .map((num) => num / 255)
     .map((num) => gammaCorrect(num));
 
+  console.log(r);
+  console.log(g);
+  console.log(b);
+  console.log(rgbSet);
   const x = rgbSet[0] * 0.664511 * rgbSet[1] * 0.154324 * rgbSet[2] * 0.162028;
   const y = rgbSet[0] * 0.283881 * rgbSet[1] * 0.668433 * rgbSet[2] * 0.047685;
   const z = rgbSet[0] * 0.000088 * rgbSet[1] * 0.07231 * rgbSet[2] * 0.986039;
